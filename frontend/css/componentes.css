@@ -1,0 +1,176 @@
+/* ==========================================================
+   componentes.css · Aspecto de cada pieza: botones, tarjetas, tablas...
+   ========================================================== */
+
+/* ---------- Botones de la barra ---------- */
+.barra__boton {
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    background: transparent;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .barra__boton img { width: 22px; height: 22px; }
+  .barra__boton img { filter: invert(1); }
+  .barra__boton:hover { background: var(--panel-suave); }
+  .barra__boton.is-activo { background: var(--rojo); border-color: var(--rojo); }
+  
+  /* ---------- Tarjeta genérica ---------- */
+  .tarjeta {
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: var(--espacio);
+  }
+  .tarjeta__titulo { color: var(--texto-suave); font-size: 0.8rem; }
+  
+  /* ---------- Lista de clasificación (izquierda) ---------- */
+  .clasificacion__ayuda { color: var(--texto-suave); font-size: 0.85rem; margin-bottom: 10px; }
+  .fila {
+    display: grid;
+    grid-template-columns: 24px 40px 1fr auto;
+    gap: 8px;
+    align-items: center;
+    padding: 8px;
+    border-left: 4px solid var(--color-fila, transparent);
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  .fila:hover { background: var(--panel-suave); }
+  .fila.is-seleccionado { background: var(--panel-suave); }
+  .fila__pos { color: var(--texto-suave); }
+  .fila__codigo { font-weight: 600; }
+  .fila__dif { color: var(--texto-suave); font-size: 0.9rem; }
+  
+  /* ---------- Medidor de sanciones ---------- */
+  .medidor { width: 100%; max-width: 220px; margin: 0 auto; display: block; }
+  .medidor__fondo, .medidor__valor { fill: none; stroke-width: 10; stroke-linecap: round; }
+  .medidor__fondo { stroke: var(--borde); }
+  .medidor__valor {
+    stroke: var(--rojo);
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;           /* JavaScript lo reduce según los puntos */
+    transition: stroke-dashoffset 0.6s;
+  }
+  .medidor text { fill: var(--texto); font-family: var(--fuente-titulos); font-size: 20px; }
+  .medidor__texto { text-align: center; color: var(--texto-suave); margin-bottom: 12px; }
+  
+  /* ---------- Cifras y listas de datos ---------- */
+  .cifras { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
+  .cifras div { background: var(--fondo); border-radius: 10px; padding: 8px; }
+  .cifras dt, .datos dt { color: var(--texto-suave); font-size: 0.8rem; }
+  .cifras dd { margin: 0; font-family: var(--fuente-titulos); font-size: 1.1rem; }
+  .datos { display: grid; gap: 4px; }
+  .datos dd { margin: 0 0 8px; font-weight: 500; }
+  
+  /* ---------- Últimas carreras y video ---------- */
+  .fichas { display: flex; gap: 8px; }
+  .ficha { flex: 1; text-align: center; background: var(--fondo); border-radius: 10px; padding: 8px 0; }
+  .ficha small { display: block; color: var(--texto-suave); }
+  .video {
+    margin-top: 12px;
+    padding: 24px 12px;
+    text-align: center;
+    color: var(--texto-suave);
+    border: 1px dashed var(--borde);
+    border-radius: 10px;
+  }
+  
+  /* ---------- Tarjeta grande del piloto (cambia de color) ---------- */
+  .piloto {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    border-radius: var(--radio);
+    background: var(--color-equipo);
+    color: var(--color-texto-equipo);
+    transition: background 0.4s;
+  }
+  .piloto__numero {
+    position: absolute;
+    top: -10px; right: 12px;
+    font-family: var(--fuente-titulos);
+    font-size: 7rem;
+    line-height: 1;
+    opacity: 0.3;
+  }
+  .piloto__foto {
+    position: absolute;
+    bottom: 0; right: 0;
+    height: 85%;
+    width: auto;
+    object-fit: contain;
+  }
+  .piloto__texto { position: absolute; left: 16px; bottom: 16px; max-width: 60%; }
+  .piloto__escuderia { font-size: 0.85rem; }
+  .piloto__nombre { font-family: var(--fuente-titulos); font-size: 1.2rem; line-height: 1.2; }
+  
+  /* ---------- Tablas ---------- */
+  .tabla { width: 100%; border-collapse: collapse; margin-top: 12px; }
+  .tabla th { text-align: left; color: var(--texto-suave); font-weight: 500; font-size: 0.85rem; }
+  .tabla th, .tabla td { padding: 8px 6px; border-bottom: 1px solid var(--borde); }
+  .tabla tbody tr:hover { background: var(--panel-suave); }
+  
+  /* ---------- Estadísticas: dona y barras ---------- */
+  .dona-caja { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .dona {
+    position: relative;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: var(--dona-gradiente, var(--borde));   /* JavaScript completa los porcentajes */
+  }
+  .dona::after {                       /* agujero del centro */
+    content: "";
+    position: absolute; inset: 28%;
+    border-radius: 50%;
+    background: var(--panel);
+  }
+  .leyenda li { display: flex; align-items: center; gap: 8px; margin: 4px 0; }
+  .leyenda i { width: 10px; height: 10px; border-radius: 50%; background: var(--color-item); }
+  .barras li { display: grid; grid-template-columns: 44px 1fr 24px; gap: 8px; align-items: center; margin: 8px 0; }
+  .barras__relleno { height: 10px; border-radius: 5px; background: var(--color-item); }
+  
+  /* ---------- Calendario ---------- */
+  progress { width: 100%; height: 10px; margin: 8px 0 16px; accent-color: var(--rojo); }
+  .linea__item {
+    display: flex; gap: 12px; align-items: center;
+    padding: 10px 12px; margin-bottom: 8px;
+    background: var(--fondo);
+    border-left: 4px solid var(--borde);
+    border-radius: 10px;
+  }
+  .linea__item.is-disputada { border-left-color: var(--rojo); }
+  .linea__item.is-pendiente { color: var(--texto-suave); }
+  .linea__item span:nth-child(2) { flex: 1; }
+  .insignia { font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; background: var(--panel-suave); }
+  .is-disputada .insignia { background: var(--rojo); color: #fff; }
+  
+  /* ---------- Formularios ---------- */
+  .formulario { display: grid; gap: 6px; align-content: start; }
+  .formulario label { color: var(--texto-suave); font-size: 0.85rem; margin-top: 6px; }
+  input, select {
+    width: 100%;
+    padding: 10px;
+    background: var(--fondo);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font: inherit;
+  }
+  button[type="submit"] {
+    margin-top: 12px;
+    padding: 12px;
+    background: var(--rojo);
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  button[type="submit"]:hover { filter: brightness(1.15); }
+  .mensaje { min-height: 1.4em; font-size: 0.9rem; }
+  .mensaje.is-ok { color: var(--verde); }
+  .mensaje.is-error { color: var(--rojo); }

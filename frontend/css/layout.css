@@ -1,0 +1,71 @@
+/* ==========================================================
+   layout.css · Dónde va cada cosa en la pantalla.
+   ========================================================== */
+
+/* ---------- Barra superior ---------- */
+.barra {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    height: var(--alto-barra);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--espacio);
+    background: var(--panel);
+    border-bottom: 3px solid var(--rojo);
+  }
+  .barra__menu { display: flex; gap: 8px; }
+  .barra__logo { height: 28px; width: auto; }
+  
+  /* ---------- Página: clasificación a la izquierda, contenido a la derecha ---------- */
+  .pagina {
+    display: grid;
+    grid-template-columns: var(--ancho-clasificacion) minmax(0, 1fr);
+    gap: var(--espacio);
+    padding: var(--espacio);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  
+  /* La clasificación se queda fija y tiene su propio scroll */
+  .clasificacion {
+    position: sticky;
+    top: calc(var(--alto-barra) + var(--espacio));
+    align-self: start;
+    max-height: calc(100vh - var(--alto-barra) - 2 * var(--espacio));
+    overflow-y: auto;
+    background: var(--panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+    padding: var(--espacio);
+  }
+  
+  /* ---------- Rejillas de tarjetas ---------- */
+  .rejilla {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: var(--espacio);
+  }
+  .rejilla--resultados  { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .rejilla--estadisticas { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); }
+  .rejilla--gestion { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rejilla--gestion > :last-child { grid-column: 1 / -1; }  /* historial a lo ancho */
+  
+  /* ---------- Pie de página ---------- */
+  .pie {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: 0.85rem;
+    padding: var(--espacio);
+  }
+  
+  /* ---------- Pantallas chicas: todo en una columna ---------- */
+  @media (max-width: 900px) {
+    .pagina { grid-template-columns: 1fr; }
+    .clasificacion { position: static; max-height: 320px; }
+    .rejilla,
+    .rejilla--resultados,
+    .rejilla--estadisticas,
+    .rejilla--gestion { grid-template-columns: 1fr; }
+  }

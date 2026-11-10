@@ -1,0 +1,62 @@
+/* ==========================================================
+   variables.css · Colores, tipografías y medidas de toda la página.
+   Para cambiar el aspecto general, se edita SOLO este archivo.
+   ========================================================== */
+
+/* ---------- Tipografías (archivos en la carpeta fuentes/) ----------
+   Si el nombre de tu archivo es distinto, cambialo en la línea "src". */
+   @font-face {
+    font-family: "Michroma";
+    src: url("../fuentes/Michroma-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow";
+    src: url("../fuentes/Barlow-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow";
+    src: url("../fuentes/Barlow-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Barlow";
+    src: url("../fuentes/Barlow-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-display: swap;
+  }
+  
+  :root {
+    /* Colores de fondo */
+    --fondo: #0f172a;           /* fondo de la página */
+    --panel: #1e293b;           /* tarjetas y barras */
+    --panel-suave: #263449;     /* filas al pasar el mouse */
+    --borde: #334155;
+  
+    /* Colores de texto */
+    --texto: #e2e8f0;
+    --texto-suave: #94a3b8;
+  
+    /* Rojo de F1 (botones, selección, carreras disputadas) */
+    --rojo: #e10600;
+    --verde: #22c55e;
+    --amarillo: #facc15;
+  
+    /* Color del piloto elegido: JavaScript los cambia según su escudería */
+    --color-equipo: #e10600;
+    --color-texto-equipo: #ffffff;
+  
+    /* Tipografías */
+    --fuente-titulos: "Michroma", "Arial Black", sans-serif;
+    --fuente-texto: "Barlow", system-ui, sans-serif;
+  
+    /* Medidas */
+    --radio: 14px;
+    --espacio: 16px;
+    --ancho-clasificacion: 270px;
+    --alto-barra: 64px;
+  }

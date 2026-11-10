@@ -1,0 +1,48 @@
+/* ==========================================================
+   base.css · Reglas generales que valen para toda la página.
+   ========================================================== */
+
+/* El padding y el borde cuentan dentro del ancho de cada caja */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--fuente-texto);
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+/* Títulos con la tipografía ancha */
+h1, h2 {
+  font-family: var(--fuente-titulos);
+  font-weight: 400;
+  margin: 0 0 var(--espacio);
+}
+h1 { font-size: 1.4rem; }
+h2 { font-size: 1rem; }
+
+p, dl, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+img { max-width: 100%; display: block; }
+
+/* Hace que el atributo "hidden" siempre oculte el elemento */
+[hidden] { display: none !important; }
+
+/* Foco visible al navegar con el teclado */
+:focus-visible { outline: 2px solid var(--rojo); outline-offset: 2px; }
+
+/* Texto que solo leen los lectores de pantalla */
+.solo-lectores {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Quien prefiere menos movimiento no ve animaciones */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

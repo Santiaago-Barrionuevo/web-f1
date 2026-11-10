@@ -1,6 +1,6 @@
 # F1 2026 · Sistema de estadísticas y resultados
 
-Trabajo práctico de **Bases de Datos II**.
+Trabajo práctico de **Programación I - Base de Datos II**
 Alumno: Santiago Nicolás Barrionuevo Navarro.
 
 Aplicación web que muestra y gestiona los datos del Campeonato Mundial de Fórmula 1 (temporada 2026), guardados en una base de datos **PostgreSQL**. La página lee los datos de la base a través de una API propia; ningún dato está escrito a mano en el HTML.
