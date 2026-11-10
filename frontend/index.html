@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<!-- Idioma de la página: ayuda a lectores de pantalla y buscadores -->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <!-- Hace que la página se adapte al ancho de cada pantalla -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>F1 2026 · Campeonato Mundial</title>
+
+  <!-- Estilos: cada archivo CSS tiene un trabajo distinto (se crean en el próximo paso) -->
+  <link rel="stylesheet" href="css/variables.css">   <!-- colores y tipografías -->
+  <link rel="stylesheet" href="css/base.css">        <!-- reglas generales -->
+  <link rel="stylesheet" href="css/layout.css">      <!-- distribución en pantalla -->
+  <link rel="stylesheet" href="css/componentes.css"> <!-- tarjetas, tablas, formularios -->
+
+  <!-- Script: "defer" espera a que el HTML esté cargado antes de ejecutarse -->
+  <script src="js/app.js" defer></script>
+</head>
+
+<body>
+
+  <!-- ===== BARRA SUPERIOR: navegación entre secciones ===== -->
+  <header class="barra">
+    <nav class="barra__menu" aria-label="Secciones">
+      <!-- data-seccion indica qué <section> muestra cada botón -->
+      <button type="button" class="barra__boton is-activo" data-seccion="inicio" aria-label="Inicio">
+        <img src="img/iconos/casa.svg" alt="">
+      </button>
+      <button type="button" class="barra__boton" data-seccion="resultados" aria-label="Resultados">
+        <img src="img/iconos/hojas.svg" alt="">
+      </button>
+      <button type="button" class="barra__boton" data-seccion="estadisticas" aria-label="Estadísticas">
+        <img src="img/iconos/grafico.svg" alt="">
+      </button>
+      <button type="button" class="barra__boton" data-seccion="calendario" aria-label="Calendario">
+        <img src="img/iconos/calendario.svg" alt="">
+      </button>
+      <button type="button" class="barra__boton" data-seccion="gestion" aria-label="Gestión">
+        <img src="img/iconos/engranaje.svg" alt="">
+      </button>
+    </nav>
+    <img class="barra__logo" src="img/logo-f1.svg" alt="Logo de Fórmula 1">
+  </header>
+
+  <div class="pagina">
+
+    <!-- ===== COLUMNA IZQUIERDA: clasificación (visible en todas las secciones) ===== -->
+    <aside class="clasificacion" aria-labelledby="titulo-clasificacion">
+      <h2 id="titulo-clasificacion">Clasificación 2026</h2>
+      <p class="clasificacion__ayuda">Tocá un piloto para ver su ficha</p>
+      <!-- JavaScript va a llenar esta lista con los datos de la base -->
+      <ol id="lista-clasificacion">
+        <li>Cargando…</li>
+      </ol>
+    </aside>
+
+    <main class="contenido">
+
+      <!-- ===== SECCIÓN 1: INICIO ===== -->
+      <section id="inicio" class="seccion" aria-labelledby="t-inicio">
+        <h1 id="t-inicio" class="solo-lectores">Inicio: ficha del piloto</h1>
+
+        <div class="rejilla">
+
+          <!-- Tarjeta: medidor de sanciones (0 a 12) y totales -->
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Medidor de sanciones</h2>
+            <!-- pathLength="100" hace que el arco se pueda llenar de 0 a 100 -->
+            <svg class="medidor" viewBox="0 0 120 70" role="img" aria-label="Puntos de sanción sobre 12">
+              <path class="medidor__fondo" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+              <path id="medidor-valor" class="medidor__valor" d="M10 62 A50 50 0 0 1 110 62" pathLength="100"/>
+              <text id="medidor-numero" x="60" y="58" text-anchor="middle">0</text>
+            </svg>
+            <p class="medidor__texto">de 12 puntos · <span id="estado-licencia">Licencia</span></p>
+            <dl class="cifras">
+              <div><dt>Puntos</dt><dd id="cifra-puntos">–</dd></div>
+              <div><dt>Victorias</dt><dd id="cifra-victorias">–</dd></div>
+              <div><dt>Podios</dt><dd id="cifra-podios">–</dd></div>
+            </dl>
+          </article>
+
+          <!-- Tarjeta: datos de la escudería del piloto elegido -->
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Escudería</h2>
+            <dl class="datos">
+              <dt>Nombre</dt>    <dd id="esc-nombre">–</dd>
+              <dt>Motorista</dt> <dd id="esc-motorista">–</dd>
+              <dt>Jefe de equipo</dt> <dd id="esc-jefe">–</dd>
+              <dt>Sede</dt>      <dd id="esc-sede">–</dd>
+            </dl>
+          </article>
+
+          <!-- Tarjeta: últimas 5 carreras del piloto + video opcional -->
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Últimas 5 carreras</h2>
+            <ul id="ultimas-carreras" class="fichas">
+              <li>Cargando…</li>
+            </ul>
+            <!-- Espacio para un video de YouTube (opcional). Si no hay enlace, queda este aviso -->
+            <div id="video-gp" class="video">Video opcional del GP</div>
+          </article>
+
+          <!-- Tarjeta grande del piloto: cambia de color según su escudería -->
+          <article id="tarjeta-piloto" class="piloto">
+            <span id="piloto-numero" class="piloto__numero">0</span>
+            <img id="piloto-foto" class="piloto__foto" src="" alt="">
+            <div class="piloto__texto">
+              <p id="piloto-escuderia" class="piloto__escuderia">Escudería</p>
+              <p id="piloto-nombre" class="piloto__nombre">Elegí un piloto</p>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <!-- ===== SECCIÓN 2: RESULTADOS =====
+           "hidden" oculta la sección hasta que se elija su botón -->
+      <section id="resultados" class="seccion" aria-labelledby="t-resultados" hidden>
+        <h1 id="t-resultados">Resultados</h1>
+
+        <div class="rejilla rejilla--resultados">
+          <article class="tarjeta">
+            <label for="select-gp">Gran Premio</label>
+            <!-- Las opciones las agrega JavaScript desde la tabla carrera -->
+            <select id="select-gp"></select>
+
+            <table class="tabla">
+              <caption class="solo-lectores">Resultados del Gran Premio elegido</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Pos</th>
+                  <th scope="col">Piloto</th>
+                  <th scope="col">Escudería</th>
+                  <th scope="col">Puntos</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-resultados">
+                <tr><td colspan="5">Cargando…</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Gran Premio</h2>
+            <dl class="datos">
+              <dt>Nombre</dt>  <dd id="gp-nombre">–</dd>
+              <dt>Fecha</dt>   <dd id="gp-fecha">–</dd>
+              <dt>Circuito</dt><dd id="gp-circuito">–</dd>
+              <dt>Ganador</dt> <dd id="gp-ganador">–</dd>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== SECCIÓN 3: ESTADÍSTICAS ===== -->
+      <section id="estadisticas" class="seccion" aria-labelledby="t-estadisticas" hidden>
+        <h1 id="t-estadisticas">Estadísticas</h1>
+
+        <div class="rejilla rejilla--estadisticas">
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Puntos por escudería</h2>
+            <div class="dona-caja">
+              <!-- El gráfico de dona se dibuja con CSS; JavaScript le pasa los porcentajes -->
+              <div id="dona" class="dona" role="img" aria-label="Gráfico de puntos por escudería"></div>
+              <ul id="leyenda-dona" class="leyenda"></ul>
+            </div>
+          </article>
+
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Victorias por piloto</h2>
+            <ul id="barras-victorias" class="barras"></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== SECCIÓN 4: CALENDARIO ===== -->
+      <section id="calendario" class="seccion" aria-labelledby="t-calendario" hidden>
+        <h1 id="t-calendario">Calendario</h1>
+        <article class="tarjeta">
+          <p><span id="cal-disputadas">–</span> de <span id="cal-total">–</span> carreras disputadas</p>
+          <!-- <progress> es una barra de avance nativa -->
+          <progress id="cal-progreso" value="0" max="23">0</progress>
+          <ol id="linea-tiempo" class="linea">
+            <li>Cargando…</li>
+          </ol>
+        </article>
+      </section>
+
+      <!-- ===== SECCIÓN 5: GESTIÓN (formularios que escriben en la base) ===== -->
+      <section id="gestion" class="seccion" aria-labelledby="t-gestion" hidden>
+        <h1 id="t-gestion">Gestión</h1>
+
+        <div class="rejilla rejilla--gestion">
+
+          <!-- Formulario 1: aplica el procedimiento almacenado aplicar_sancion_piloto -->
+          <form id="form-sancion" class="tarjeta formulario">
+            <h2 class="tarjeta__titulo">Aplicar sanción</h2>
+
+            <label for="sancion-piloto">Piloto</label>
+            <select id="sancion-piloto" name="id_piloto" required></select>
+
+            <label for="sancion-puntos">Puntos de sanción (1 a 12)</label>
+            <input id="sancion-puntos" name="puntos" type="number" min="1" max="12" value="1" required>
+
+            <button type="submit">Aplicar sanción</button>
+            <!-- aria-live avisa a lectores de pantalla cuando cambia el mensaje -->
+            <p id="mensaje-sancion" class="mensaje" aria-live="polite"></p>
+          </form>
+
+          <!-- Formulario 2: inserta un piloto nuevo (cada campo coincide con una columna de la tabla piloto) -->
+          <form id="form-piloto" class="tarjeta formulario">
+            <h2 class="tarjeta__titulo">Alta de piloto</h2>
+
+            <label for="p-nombre">Nombre</label>
+            <input id="p-nombre" name="nombre" type="text" maxlength="50" required autocomplete="off">
+
+            <label for="p-apellido">Apellido</label>
+            <input id="p-apellido" name="apellido" type="text" maxlength="50" required autocomplete="off">
+
+            <label for="p-nacionalidad">Nacionalidad</label>
+            <input id="p-nacionalidad" name="nacionalidad" type="text" maxlength="50" required>
+
+            <!-- type="date" porque en la base fecha_nacimiento es de tipo DATE -->
+            <label for="p-nacimiento">Fecha de nacimiento</label>
+            <input id="p-nacimiento" name="fecha_nacimiento" type="date" required>
+
+            <!-- type="number" porque numero_coche es INT -->
+            <label for="p-numero">Número de coche</label>
+            <input id="p-numero" name="numero_coche" type="number" min="0" max="99" required>
+
+            <label for="p-codigo">Código (3 letras)</label>
+            <input id="p-codigo" name="codigo" type="text" maxlength="3" pattern="[A-Z]{3}" placeholder="ABC" required>
+
+            <label for="p-escuderia">Escudería</label>
+            <select id="p-escuderia" name="id_escuderia" required></select>
+
+            <button type="submit">Guardar piloto</button>
+            <p id="mensaje-piloto" class="mensaje" aria-live="polite"></p>
+          </form>
+
+          <!-- Historial que llena el trigger de la base -->
+          <article class="tarjeta">
+            <h2 class="tarjeta__titulo">Historial de sanciones</h2>
+            <table class="tabla">
+              <caption class="solo-lectores">Últimas sanciones aplicadas</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Piloto</th>
+                  <th scope="col">Puntos</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Estado</th>
+                </tr>
+              </thead>
+              <tbody id="tabla-historial">
+                <tr><td colspan="5">Cargando…</td></tr>
+              </tbody>
+            </table>
+          </article>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <footer class="pie">
+    Proyecto de Bases de Datos II · Datos de la temporada 2026 tomados de formula1.com
+  </footer>
+
+</body>
+</html>
